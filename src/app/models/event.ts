@@ -17,13 +17,14 @@ limitations under the License.
 import {EventType} from './event-type.enum';
 import {ClassIndex} from './class-index.enum';
 import {WeekDay} from '@angular/common';
+import {SystemService} from '../services/system.service';
 
 /**
  * 表示一次课/实验/考试
  */
 export class Event
 {
-
+  private system = new SystemService();
   /**
    *    课程的开始时间
    */
@@ -77,6 +78,7 @@ export class Event
   {
     // TODO
   }
+
   /**
    * 节次
    */
@@ -89,6 +91,7 @@ export class Event
   {
     // TODO
   }
+
   /**
    * 周几
    */

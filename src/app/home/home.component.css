@@ -1,0 +1,42 @@
+.example-spacer{
+  align-items: flex-end;
+  align-self: flex-end;
+}
+.toolbar-button{
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.sidenav-container {
+  margin-top: 100px;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  z-index: 0;
+}
+.sidenav-content {
+  flex: 1 1 auto;
+}
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

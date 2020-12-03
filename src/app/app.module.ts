@@ -20,7 +20,7 @@ import { EditCalendarTimeDialogComponent } from './event-detail/edit-calendar-ti
 import {NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import { CoursesViewComponent } from './courses-view/courses-view.component';
 import { AboutComponent } from './about/about.component';
-
+import { HttpClientModule }    from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +47,8 @@ import { AboutComponent } from './about/about.component';
     FormsModule,
     ClipboardModule,
     NgbTimepickerModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

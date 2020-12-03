@@ -11,3 +11,6 @@ SchOOD(Schedule of our dream)由哈尔滨工业大学开源文化与软件开发
 - [Angular](https://github.com/angular/angular)
 - [Bootstrap](https://github.com/twbs/bootstrap)
 - [FontAwesome](https://github.com/FortAwesome/Font-Awesome)
+- [ngx-clipboard](https://github.com/maxisam/ngx-clipboard)
+- [date-fns](https://github.com/date-fns/date-fns)
+- [ng-bootstrap](https://github.com/firebaseui/ng-bootstrap)

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-sm navbar-light rounded-top flex-column flex-md-row bg-SchOOD-L2">
+
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../Available" routerLinkActive="active">可用课程<span
+            class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../All" routerLinkActive="active">全部课程<span
+            class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../Hidden" routerLinkActive="active">隐藏的课程<span
+            class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../Local" routerLinkActive="active">我的课程<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../Shared" routerLinkActive="active">共享的课程<span
+            class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+
+    </div>
+
+    <button type="button" class="nav-link btn"
+            data-toggle="modal" data-target="#add">
+      <i class="fas fa-plus"
+         data-toggle="tooltip" data-placement="top"
+         title="添加共享的课程/课表"></i>
+    </button>
+
+  </div>
+
+</nav>
+
+<app-courses-view-container [Courses$]="Courses$"></app-courses-view-container>
+
+<app-add-dialog ComponentId="add"></app-add-dialog>

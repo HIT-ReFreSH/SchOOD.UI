@@ -1,22 +1,30 @@
-/* Application-wide Styles */
-h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+.bg-refresh-orange{
+  background-color: #F15A24
 }
-h2, h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
+
+.bg-refresh-yellow{
+  background-color: #FBB03B
 }
-body {
-  margin: 0;
+
+.bg-refresh-blue{
+  background-color: #67CDFD
 }
-body, input[type="text"], button {
-  color: #333;
-  font-family: Cambria, Georgia, serif;
+.bg-SchOOD-L2{
+  background-color: #D9E021
 }
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
+.bg-refresh-purple{
+  background-color: #7952b3
+}
+
+.font-size-32{
+  font-size: 32px;
+  text-align: center;
+}
+
+.w-16{
+  width: 50px;
+}
+
+.bg-SchOOD-L1{
+  background-color: #8CC63F
 }

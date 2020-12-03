@@ -1,0 +1,103 @@
+<div class="modal fade" [id]="ComponentId" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">添加共享的课程/课表</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="accordion" id="accordionShare">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn nav-link btn-block text-center" type="button" data-toggle="collapse"
+                        data-target="#add-shared-course" aria-expanded="true" aria-controls="collapseOne">
+                  添加共享的课程
+                </button>
+              </h2>
+            </div>
+
+            <div id="add-shared-course" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionShare">
+              <div class="card-body">
+                <div>
+                  <label for="course-id" class="col-form-label">
+                    <i class="fas fa-hashtag"></i>
+                    课程ID:
+                  </label>
+                  <div class="row m-1 input-group ">
+                    <input class="form-control"
+                           name="date" id="course-id" [(ngModel)]="courseId" aria-describedby="button-addon2">
+
+                    <div class="input-group-append">
+                      <button class="btn btn-secondary" type="button"
+                              data-toggle="tooltip" data-placement="top"
+                              title="预览课程"
+                              id="button-addon2">
+                        <i class="fas fa-binoculars"></i>
+                      </button>
+                    </div>
+
+                  </div>
+                  <small id="courseIdHelp" class="form-text" [class.text-muted]="!courseSummaryError" [class.text-danger]="courseSummaryError">
+                    {{courseSummary}}
+                  </small>
+                </div>
+              </div>
+              <div class="card-footer bg-white clearfix">
+                <button type="button" class="btn btn-success float-right" data-dismiss="modal">添加</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 class="mb-0">
+                <button class="btn nav-link btn-block text-center" type="button"
+                        data-toggle="collapse" data-target="#add-shared-schedule" aria-expanded="false" aria-controls="collapseTwo">
+                  添加共享的课表
+                </button>
+              </h2>
+            </div>
+            <div id="add-shared-schedule" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionShare">
+              <div class="card-body">
+                <div>
+                  <label for="schedule-id" class="col-form-label">
+                    <i class="fas fa-hashtag"></i>
+                    课程ID:
+                  </label>
+                  <div class="row m-1 input-group ">
+                    <input class="form-control"
+                           name="date" id="schedule-id" [(ngModel)]="scheduleId" aria-describedby="button-addon2">
+
+                    <div class="input-group-append">
+                      <button class="btn btn-secondary" type="button"
+                              data-toggle="tooltip" data-placement="top"
+                              title="预览课表"
+                      >
+                        <i class="fas fa-binoculars"></i>
+                      </button>
+                    </div>
+
+                  </div>
+                  <small class="form-text" [class.text-muted]="!scheduleSummaryError" [class.text-danger]="scheduleSummaryError">
+                    {{scheduleSummary}}
+                  </small>
+                </div>
+              </div>
+              <div class="card-footer bg-white clearfix">
+                <button type="button" class="btn btn-success float-right" data-dismiss="modal">添加</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>

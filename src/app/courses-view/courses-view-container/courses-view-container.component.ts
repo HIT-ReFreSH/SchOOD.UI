@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
 import {CourseService} from 'src/app/services/course.service';
 import {Course} from '../../models/course';
+import {CourseSummary} from '../../models/course-summary';
+import {CourseSource} from '../../models/course-source.enum';
 
 @Component({
   selector: 'app-courses-view-container',
@@ -11,39 +13,27 @@ import {Course} from '../../models/course';
 })
 export class CoursesViewContainerComponent implements OnInit
 {
-  public courses: string[] | undefined;
+  @Input()
+  public Courses$: Observable<CourseSummary[]> = of([
+    {
+      Source: CourseSource.Local,
+      Hidden: false,
+      CourseName: 'Test',
+      Teacher: 'Test Teacher',
+      Location: '正心11',
+      StartTime: 'Test Time',
+      EnableNotification: false,
+      Id: '0'
+    }
+  ]);
 
-  constructor(
-    private route: ActivatedRoute,
-    public courseService: CourseService
-  )
+  constructor()
   {
   }
 
   ngOnInit(): void
   {
-    const opt = this.route.snapshot.paramMap.get('opt');
-    console.log(typeof opt === 'string' ? opt : 'null');
 
-    switch (opt)
-    {
-      case 'All':
-        this.courseService.getAllCourses().subscribe(c => this.courses = c);
-        break;
-      case 'Linked':
-        this.courseService.getLinkedCourses().subscribe(c => this.courses = c);
-        break;
-      case 'Local':
-        this.courseService.getLocalCourses().subscribe(c => this.courses = c);
-        break;
-      case 'Hidden':
-        this.courseService.getHiddenCourses().subscribe(c => this.courses = c);
-        break;
-      case null:
-      default:
-        this.courseService.getCourses().subscribe(c => this.courses = c);
-        break;
-    }
   }
 
 }

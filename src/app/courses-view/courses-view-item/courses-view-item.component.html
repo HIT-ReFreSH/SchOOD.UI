@@ -1,1 +1,65 @@
-<p>courses-view-item works!</p>
+<div class="card my-2">
+  <div class="card-header text-center">
+    <div *ngIf="Course.Source==LOCAL">
+      <i class="fas fa-home"></i>
+      <span class="ml-2">我的课程</span>
+    </div>
+    <div *ngIf="Course.Source!=LOCAL">
+      <i class="fas fa-share-alt"></i>
+      <span class="ml-2">共享的课程</span>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title text-center">
+      {{Course.CourseName}}
+    </h5>
+    <ul class="card-text course-summary list-group list-group-flush">
+      <li *ngIf="Course.Teacher" class="list-group-item">
+        <i class="fas fa-user"></i>
+        <span class="ml-2 text-center">{{Course.Teacher}}</span>
+      </li>
+      <li *ngIf="Course.Location" class="list-group-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="ml-2 text-center">{{Course.Location}}</span>
+      </li>
+      <li class="list-group-item">
+        <i class="fas fa-clock"></i>
+        <span class="ml-2 text-center">{{Course.StartTime}}</span>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="card-footer text-right">
+
+    <a type="button" class="btn-outline-primary btn float-right m-1 w-16 text-center"
+       routerLink="/Course/{{Course.Id}}"
+       data-toggle="tooltip" data-placement="top"
+       title="编辑详情">
+      <i class="fas fa-pen"></i>
+    </a>
+    <button type="button" class="btn float-right m-1 w-16 text-center btn-outline-danger"
+            data-toggle="tooltip" data-placement="top"
+            [title]="Course.Hidden?'解除隐藏': Course.Source==LOCAL? '隐藏':'移除'">
+      <i *ngIf="Course.Hidden" class="fas fa-eye-slash"></i>
+      <i *ngIf="!Course.Hidden && Course.Source==LOCAL" class="fas fa-eye"></i>
+      <i *ngIf="!Course.Hidden && Course.Source!=LOCAL" class="fas fa-times"></i>
+    </button>
+    <button type="button" class="btn float-right m-1 w-16 text-center btn-outline-warning"
+            data-toggle="tooltip" data-placement="top"
+            [title]="Course.EnableNotification?'关闭通知':'启用通知'">
+      <i *ngIf="Course.EnableNotification" class="fas fa-bell"></i>
+      <i *ngIf="!Course.EnableNotification" class="fas fa-bell-slash"></i>
+    </button>
+    <button type="button" class="btn-outline-success btn float-right m-1 w-16 text-center"
+            data-toggle="modal" data-target="#share-course"
+    >
+      <i class="fas fa-share-alt"
+         data-toggle="tooltip" data-placement="top"
+         title="分享课程"></i>
+    </button>
+  </div>
+</div>
+<app-share-dialog ComponentId="share-course" [TargetId]="Course.Id" ShareType="课程"></app-share-dialog>
+

@@ -15,94 +15,53 @@ limitations under the License.
 */
 
 import {EventType} from './event-type.enum';
-import {ClassIndex} from './class-index.enum';
-import {WeekDay} from '@angular/common';
-import {SystemService} from '../services/system.service';
+
 
 /**
  * 表示一次课/实验/考试
  */
-export class Event
-{
-  private system = new SystemService();
+export interface Event {
+
+
   /**
    *    课程的开始时间
    */
-  public StartTime: Date = new Date();
+  StartTime: Date;
 
   /**
    *    事件是否被隐藏
    */
-  public Hidden = false;
+  Hidden: boolean;
 
   /**
    *    事件的老师，为空则没有
    */
-  public Teacher: string | null = null;
+  Teacher: string | null;
 
   /**
    *    事件Id
    */
-  public EventId = '';
+  EventId: string;
 
   /**
    *    事件执行的地点，为空则没有
    */
-  public Location: string | null = null;
+  Location: string | null;
 
   /**
    *    事件所属课程的Id
    */
-  public CourseId = '';
+  CourseId: string;
 
   /**
    *    事件的长度
    */
-  public EventDuration = 0;
+  EventDuration: number;
 
   /**
    * 事件类型
    */
-  public Type = EventType.Default;
+  Type: EventType;
 
-  /**
-   * 周数
-   */
-  public get WeekIndex(): number
-  {
-    // TODO
-    return 0;
-  }
 
-  public set WeekIndex(v: number)
-  {
-    // TODO
-  }
-
-  /**
-   * 节次
-   */
-  public get ClassIndex(): ClassIndex
-  {
-    return 0;
-  }
-
-  public set ClassIndex(v: ClassIndex)
-  {
-    // TODO
-  }
-
-  /**
-   * 周几
-   */
-  public get WeekDay(): WeekDay
-  {
-    // TODO
-    return 0;
-  }
-
-  public set WeekDay(v: WeekDay)
-  {
-    // TODO
-  }
 }

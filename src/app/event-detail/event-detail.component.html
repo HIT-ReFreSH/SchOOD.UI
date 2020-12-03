@@ -1,0 +1,145 @@
+<nav class="navbar navbar-expand-sm navbar-dark rounded-top flex-column flex-md-row bg-SchOOD-L2">
+
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-nav mr-auto">
+      <span class="table-item-text">事件详情</span>
+    </div>
+    <button class="btn float-right nav-link w-16 text-center"
+            (click)="location.back()" data-toggle="tooltip" data-placement="top"
+
+            title="返回">
+      <i class="fas fa-arrow-alt-circle-left"></i>
+    </button>
+
+    <button class="btn float-right nav-link w-16 text-center"
+            data-toggle="tooltip" data-placement="top"
+
+            [title]="event.Hidden?'解除隐藏': '隐藏'">
+      <i *ngIf="event.Hidden" class="fas fa-eye-slash"></i>
+      <i *ngIf="!event.Hidden" class="fas fa-eye"></i>
+    </button>
+  </div>
+
+</nav>
+
+<main role="main" class="container flex-column h-100" style="margin-bottom: 25%">
+  <ul class="list-group list-group-flush shadow-sm mt-3 mb-5">
+    <li *ngIf="event.Type==COURSE" class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-chalkboard-teacher font-size-32"></i>
+      </div>
+      <div class="col-7">
+        课程
+      </div>
+      <div class="col-1">
+      </div>
+    </li>
+    <li *ngIf="event.Type==LAB" class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-flask font-size-32"></i>
+      </div>
+      <div class="col-7">
+        实验
+      </div>
+      <div class="col-1">
+      </div>
+    </li>
+    <li *ngIf="event.Type==EXAM" class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-graduation-cap font-size-32"></i>
+      </div>
+      <div class="col-7">
+        考试
+      </div>
+      <div class="col-1">
+      </div>
+    </li>
+    <li class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-clock font-size-32"></i>
+      </div>
+      <div class="col-7">
+        {{datetime.FormatDate(event.StartTime)}},&emsp;{{event.EventDuration}}分钟
+      </div>
+      <div class="col-1">
+        <button class="btn float-right nav-link text-center m-0"
+                data-toggle="modal" data-target="#editDateTime"
+
+                title="编辑" style="font-size:1px">
+          <i class="fas fa-edit"
+             data-toggle="tooltip" data-placement="top"
+             title="编辑"></i>
+        </button>
+      </div>
+    </li>
+
+    <li class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-calendar font-size-32"></i>
+      </div>
+      <div class="col-7">
+        第{{datetime.getWeekIndex(event.StartTime)}}周{{datetime.getWeekDay(this.event.StartTime)}},&emsp;
+        {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.EventDuration))}}
+      </div>
+      <div class="col-1">
+        <button class="btn float-right nav-link text-center m-0"
+                data-toggle="modal" data-target="#editSchoolTime" style="font-size:1px">
+          <i class="fas fa-edit"
+             data-toggle="tooltip" data-placement="top"
+             title="编辑"></i>
+        </button>
+      </div>
+    </li>
+    <li class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-map-marker-alt font-size-32"></i>
+      </div>
+      <div class="col-7">
+        {{event.Location}}
+      </div>
+      <div class="col-1">
+        <button class="btn float-right nav-link text-center m-0"
+                data-toggle="modal" data-target="#editLocation"
+                style="font-size:1px">
+          <i class="fas fa-edit"
+             data-toggle="tooltip" data-placement="top"
+             title="编辑"></i>
+        </button>
+      </div>
+    </li>
+    <li class="row m-3 w-auto">
+      <div class="col-3">
+        <i class="fas fa-user-alt font-size-32"></i>
+      </div>
+      <div class="col-7">
+        {{event.Teacher}}
+      </div>
+      <div class="col-1">
+        <button class="btn float-right nav-link text-center m-0"
+
+                data-toggle="modal" data-target="#editTeacher" style="font-size:1px">
+          <i class="fas fa-edit"
+             data-toggle="tooltip" data-placement="top"
+             title="编辑"></i>
+        </button>
+      </div>
+    </li>
+
+  </ul>
+</main>
+<app-edit-string-dialog
+  ComponentId="editTeacher" [DefaultValue]="event.Teacher?event.Teacher:''"
+  ValueTypeName="教师">
+</app-edit-string-dialog>
+<app-edit-string-dialog
+  ComponentId="editLocation" [DefaultValue]="event.Location?event.Location:''"
+  ValueTypeName="地点">
+</app-edit-string-dialog>
+<app-edit-school-time-dialog
+  ComponentId="editSchoolTime" [Time]="schoolTime">
+</app-edit-school-time-dialog>
+<app-edit-calendar-time-dialog
+  ComponentId="editDateTime" [Time]="calendarTime">
+
+</app-edit-calendar-time-dialog>

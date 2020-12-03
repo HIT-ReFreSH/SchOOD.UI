@@ -1,6 +1,10 @@
+<main class="container-fluid my-2 mx-1">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3"
+         *ngFor="let course of Courses$| async"
+         style="margin-bottom: 10px">
+      <app-courses-view-item [Course]="course"></app-courses-view-item>
+    </div>
+  </div>
 
-<mat-grid-list cols="4">
-  <mat-grid-tile *ngFor="let course of courses">
-    <app-courses-view-item [courseId]="course"></app-courses-view-item>
-  </mat-grid-tile>
-</mat-grid-list>
+</main>

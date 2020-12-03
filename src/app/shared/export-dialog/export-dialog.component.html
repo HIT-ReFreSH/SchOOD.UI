@@ -1,0 +1,54 @@
+<div class="modal fade" [id]="ComponentId" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">导出课表</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="form-group">
+            <label for="schedule-url" class="col-form-label">
+              <i class="fas fa-link"></i>
+              课表链接:
+            </label>
+            <div class="row m-1 input-group ">
+              <div class="input-group-prepend">
+                <a class="btn btn-secondary" type="button"
+                   data-toggle="tooltip" data-placement="top"
+                   title="链接"
+                   [href]="TargetUrl"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+              <input class="form-control" #input
+                     name="date" id="schedule-url" [ngModel]="TargetUrl" readonly>
+
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button"
+                        data-toggle="tooltip" data-placement="top"
+                        title="复制ID"
+                        [ngxClipboard]="input"
+                >
+                  <i class="fas fa-clipboard"></i>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

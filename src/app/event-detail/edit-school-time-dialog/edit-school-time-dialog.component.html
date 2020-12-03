@@ -1,0 +1,56 @@
+<div class="modal fade" [id]="ComponentId" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">编辑课程时间</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="form-group">
+            <label for="select-week" class="col-form-label">
+              <i class="fas fa-calendar-week"></i>
+              周数:
+            </label>
+            <select name="weekIndex" id="select-week" class="custom-select" [(ngModel)]="Time.weekIndex">
+              <option *ngFor="let week of Time.weeks" [ngValue]="week">
+                {{week}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-day" class="col-form-label">
+              <i class="fas fa-calendar-day"></i>
+              星期:
+            </label>
+            <select name="weekDay" id="select-day" class="custom-select" [(ngModel)]="Time.weekDay">
+              <option *ngFor="let weekday of Time.weekDays" [ngValue]="weekday">
+                {{weekday}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-class" class="col-form-label">
+              <i class="fas fa-list-ol"></i>
+              节次:
+            </label>
+            <select name="weekDay" id="select-class" class="custom-select" [(ngModel)]="Time.classIndex">
+              <option *ngFor="let ci of Time.datetime.ClassIndexString" [ngValue]="ci">
+                {{ci}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="Submit()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

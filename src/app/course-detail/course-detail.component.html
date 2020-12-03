@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-sm navbar-dark rounded-top flex-column flex-md-row bg-SchOOD-L2">
+
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-nav mr-auto">
+
+      <span class="table-item-text">课程详情: {{course.CourseName}}</span>
+      <button class="btn float-right nav-link text-center m-0"
+
+              data-toggle="modal" data-target="#editCourseName"
+              style="font-size:1px">
+        <i data-toggle="tooltip" data-placement="top"
+           title="编辑" class="fas fa-edit"></i>
+      </button>
+    </div>
+    <button class="btn float-right nav-link w-16 text-center"
+            data-toggle="tooltip" data-placement="top"
+            (click)="location.back()"
+            title="返回">
+      <i class="fas fa-arrow-alt-circle-left"></i>
+    </button>
+
+    <button class="btn float-right nav-link w-16 text-center"
+            data-toggle="modal" data-target="#share-course">
+      <i class="fas fa-share-alt"
+         data-toggle="tooltip" data-placement="top"
+         title="分享课程"
+
+      ></i>
+    </button>
+    <button class="btn float-right nav-link w-16 text-center">
+      <i *ngIf="course.EnableNotification"
+         data-toggle="tooltip" data-placement="top" title="关闭通知"
+         class="fas fa-bell"></i>
+      <i *ngIf="!course.EnableNotification"
+         data-toggle="tooltip" data-placement="top" title="启用通知"
+         class="fas fa-bell-slash"></i>
+    </button>
+    <button class="btn float-right nav-link w-16 text-center"
+            data-toggle="tooltip" data-placement="top"
+
+            [title]="course.Hidden?'解除隐藏': course.Source==LOCAL? '隐藏':'移除'">
+      <i *ngIf="course.Hidden" class="fas fa-eye-slash"></i>
+      <i *ngIf="!course.Hidden && course.Source==LOCAL" class="fas fa-eye"></i>
+      <i *ngIf="!course.Hidden && course.Source!=LOCAL" class="fas fa-times"></i>
+    </button>
+  </div>
+
+</nav>
+
+<main role="main" class="container" style="margin-bottom: 25%">
+  <div class="table-responsive d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">周数</th>
+        <th scope="col">星期</th>
+        <th scope="col">节次</th>
+        <th scope="col">位置</th>
+        <th scope="col">老师</th>
+        <th scope="col">类别</th>
+        <th scope="col">详情</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of events">
+        <th scope="row" class="table-item-text">
+          {{datetime.getWeekIndex(event.StartTime)}}
+        </th>
+        <td class="table-item-text">
+          {{datetime.getWeekDay(event.StartTime)}}
+        </td>
+        <td class="table-item-text">
+          {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.EventDuration))}}
+        </td>
+        <td class="table-item-text">
+          {{event.Location}}
+        </td>
+        <td class="table-item-text">
+          {{event.Teacher}}
+        </td>
+        <td class="table-item-text">
+          {{FormatType(event.Type)}}
+        </td>
+        <td>
+          <a class="btn text-center h-auto" routerLink="/Event/{{event.EventId}}">
+            <i class="fas fa-ellipsis-v" style="font-size:4px;vertical-align:bottom">
+
+            </i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</main>
+<app-edit-string-dialog
+  ComponentId="editCourseName" [DefaultValue]="course.CourseName"
+  (ValueSubmitted)="updateCourseName($event)"
+  ValueTypeName="课程名称">
+</app-edit-string-dialog>
+<app-share-dialog [TargetId]="course.CourseId" ShareType="课程" ComponentId="share-course"></app-share-dialog>

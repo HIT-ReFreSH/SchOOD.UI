@@ -14,34 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import { Injectable } from '@angular/core';
-import {BaseService} from './base.service';
-import {User} from '../models/user';
-import {Observable} from 'rxjs';
-import {Course} from '../models/course';
-
+import { BaseService } from './base.service';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
+import { Course } from '../models/course';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends BaseService
-{
-  public logout(): void
-  {
+export class UserService extends BaseService {
+    private usersUrl = '/User';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  public logout(): void {
     // TODO
+    sessionStorage.clear();
+    this.http.delete<User>(this.usersUrl,this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
+
   }
 
-  public getUser(): Observable<User>
-  {
+  public getUser(): Observable<User> {
     // TODO
-    throw new Error();
+    return this.http.get<User>(this.usersUrl)
+      .pipe(
+        catchError(this.handleError)
+      );
+
+
+    // throw new Error();
   }
 
-  public updateUser(user: User): void
-  {
+  public updateUser(user: User): void {
     // TODO
+    this.http.put(this.usersUrl,user,this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  constructor()
-  {
+  constructor(private http: HttpClient) {
     super();
   }
 }

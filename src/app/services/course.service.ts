@@ -13,100 +13,151 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {Injectable} from '@angular/core';
-import {BaseService} from './base.service';
-import {Course} from '../models/course';
-import {CourseSummary} from '../models/course-summary';
-import {Observable, of} from 'rxjs';
-import {CourseSource} from '../models/course-source.enum';
-
+import { Injectable } from '@angular/core';
+import { BaseService } from './base.service';
+import { Course } from '../models/course';
+import { CourseSummary } from '../models/course-summary';
+import { Observable, of } from 'rxjs';
+import { CourseSource } from '../models/course-source.enum';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService extends BaseService
-{
-  public getCourse(id: string): Observable<Course>
-  {
+export class CourseService extends BaseService {
+  private courseUrl = '/Courses';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  private id = '';
+  private itemid = '';
+  public getCourse(id: string): Observable<Course> {
     // TODO
-    throw new Error();
+    this.id = id;
+    const url = `${this.courseUrl}/${id}`;
+    return this.http.get<Course>(url).pipe(
+      catchError(this.handleError)
+    );
+
+    // // throw new Error();
   }
 
-  public getCourseSummary(id: string): Observable<CourseSummary>
-  {
+  public getCourseSummary(id: string): Observable<CourseSummary> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/Summary/${id}`;
+    return this.http.get<CourseSummary>(url).pipe(
+      catchError(this.handleError)
+    );
+    // // throw new Error();
   }
 
-  public getEvent(id: string): Observable<Event>
-  {
+  public getEvent(id: string): Observable<Event> {
     // TODO
-    throw new Error();
+    this.itemid = id;
+    const url = `${this.courseUrl}/Event/${this.itemid}`;
+    return this.http.get<Event>(url).pipe(
+      catchError(this.handleError)
+    );
+    // // throw new Error();
   }
 
-  public getCourses(): Observable<string[]>
-  {
+  public getCourses(): Observable<string[]> {
     // TODO
-    throw new Error();
+    return this.http.get<string[]>(this.courseUrl).pipe(
+      catchError(this.handleError)
+    );
+    // // throw new Error();
   }
 
-  public getHiddenCourses(): Observable<string[]>
-  {
+  public getHiddenCourses(): Observable<string[]> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/Hidden`;
+    return this.http.get<string[]>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public getAllCourses(): Observable<string[]>
-  {
+  public getAllCourses(): Observable<string[]> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/All`;
+    return this.http.get<string[]>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public getLinkedCourses(): Observable<string[]>
-  {
+  public getLinkedCourses(): Observable<string[]> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/Linked`;
+    return this.http.get<string[]>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public getLocalCourses(): Observable<string[]>
-  {
+  public getLocalCourses(): Observable<string[]> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/Local`;
+    return this.http.get<string[]>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public peekCourse(id: string): Observable<string>
-  {
+  public peekCourse(id: string): Observable<string> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/PeekCourse?id=${id}`;
+    return this.http.get<string>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public peekSchedule(id: string): Observable<string>
-  {
+  public peekSchedule(id: string): Observable<string> {
     // TODO
-    throw new Error();
+    const url = `${this.courseUrl}/PeekSchedule?id=${id}`;
+    return this.http.get<string>(url).pipe(
+      catchError(this.handleError)
+    );
+    // throw new Error();
   }
 
-  public updateCourse(course: Course): void
-  {
+  public updateCourse(course: Course): void {
     // TODO
+    const url = `${this.courseUrl}/${this.id}`;
+    this.http.put(url, course, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  public updateEvent(course: Event): void
-  {
+  public updateEvent(event: Event): void {
     // TODO
+    const url = `${this.courseUrl}/${this.itemid}`;
+    this.http.put(url, event, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  public linkCourse(id: string): void
-  {
+  public linkCourse(id: string): void {
     // TODO
+    const url=`${this.courseUrl}/LinkCourse`;
+   this.http.post<Course>(url, id, this.httpOptions).pipe(
+      
+      catchError(this.handleError)
+    );
   }
 
-  public linkSchedule(id: string): void
-  {
+  public linkSchedule(id: string): void {
     // TODO
+    const url=`${this.courseUrl}/LinkSchedule`;
+   this.http.post<Course>(url, id, this.httpOptions).pipe(
+      
+      catchError(this.handleError)
+    );
   }
 
-  constructor()
-  {
+  constructor(private http: HttpClient) {
     super();
   }
 }

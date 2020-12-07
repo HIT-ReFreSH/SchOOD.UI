@@ -63,7 +63,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let event of events">
+      <tr *ngFor="let event of course.Events">
         <th scope="row" class="table-item-text">
           {{datetime.getWeekIndex(event.StartTime)}}
         </th>
@@ -71,7 +71,7 @@
           {{datetime.getWeekDay(event.StartTime)}}
         </td>
         <td class="table-item-text">
-          {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.EventDuration))}}
+          {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.Duration))}}
         </td>
         <td class="table-item-text">
           {{event.Location}}
@@ -83,7 +83,7 @@
           {{FormatType(event.Type)}}
         </td>
         <td>
-          <a class="btn text-center h-auto" routerLink="/Event/{{event.EventId}}">
+          <a class="btn text-center h-auto" routerLink="/Event/{{event.Id}}">
             <i class="fas fa-ellipsis-v" style="font-size:4px;vertical-align:bottom">
 
             </i>
@@ -101,4 +101,4 @@
   (ValueSubmitted)="updateCourseName($event)"
   ValueTypeName="课程名称">
 </app-edit-string-dialog>
-<app-share-dialog [TargetId]="course.CourseId" ShareType="课程" ComponentId="share-course"></app-share-dialog>
+<app-share-dialog [TargetId]="course.Id" ShareType="课程" ComponentId="share-course"></app-share-dialog>

@@ -60,7 +60,7 @@
         <i class="fas fa-clock font-size-32"></i>
       </div>
       <div class="col-7">
-        {{datetime.FormatDate(event.StartTime)}},&emsp;{{event.EventDuration}}分钟
+        {{datetime.FormatDate(event.StartTime)}},&emsp;{{event.Duration}}分钟
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"
@@ -80,7 +80,7 @@
       </div>
       <div class="col-7">
         第{{datetime.getWeekIndex(event.StartTime)}}周{{datetime.getWeekDay(this.event.StartTime)}},&emsp;
-        {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.EventDuration))}}
+        {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.Duration))}}
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"

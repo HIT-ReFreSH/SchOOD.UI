@@ -13,32 +13,36 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { Injectable } from '@angular/core';
-import { BaseService } from './base.service';
-import { User } from '../models/user';
-import { Observable } from 'rxjs';
-import { Course } from '../models/course';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {BaseService} from './base.service';
+import {User} from '../models/user';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends BaseService {
-    private usersUrl = '/User';
+export class UserService extends BaseService
+{
+  private usersUrl = '/User';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  public logout(): void {
-    // TODO
+
+  public logout(): void
+  {
+
     sessionStorage.clear();
-    this.http.delete<User>(this.usersUrl,this.httpOptions).pipe(
+    this.http.delete<User>(this.usersUrl, this.httpOptions).pipe(
       catchError(this.handleError)
     );
 
   }
 
-  public getUser(): Observable<User> {
-    // TODO
+  public getUser(): Observable<User>
+  {
+
     return this.http.get<User>(this.usersUrl)
       .pipe(
         catchError(this.handleError)
@@ -48,14 +52,16 @@ export class UserService extends BaseService {
     // throw new Error();
   }
 
-  public updateUser(user: User): void {
-    // TODO
-    this.http.put(this.usersUrl,user,this.httpOptions).pipe(
+  public updateUser(user: User): void
+  {
+
+    this.http.put(this.usersUrl, user, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient)
+  {
     super();
   }
 }

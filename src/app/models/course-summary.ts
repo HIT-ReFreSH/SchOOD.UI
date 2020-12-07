@@ -39,7 +39,7 @@ export interface CourseSummary
   /**
    * 课程的开始时间摘要, 为空则没有
    */
-  StartTime: string | null;
+  Time: string | null;
 
   /**
    * 课程老师摘要，为空则没有

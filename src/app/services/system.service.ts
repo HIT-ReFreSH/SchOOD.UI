@@ -56,14 +56,6 @@ export class SystemService {
    * 一上午、一下午课的长度
    */
   public readonly LongClassLength = 210;
-
-
-  /**
-   * 允许的起始时间误差
-   */
-  public readonly Deviation = 15;
-
-
   /**
    * 一般课程的上课时间
    */

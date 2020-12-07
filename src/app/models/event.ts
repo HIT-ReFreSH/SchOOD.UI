@@ -20,7 +20,8 @@ import {EventType} from './event-type.enum';
 /**
  * 表示一次课/实验/考试
  */
-export interface Event {
+export interface Event
+{
 
 
   /**
@@ -41,22 +42,16 @@ export interface Event {
   /**
    *    事件Id
    */
-  EventId: string;
+  Id: string;
 
   /**
    *    事件执行的地点，为空则没有
    */
   Location: string | null;
-
-  /**
-   *    事件所属课程的Id
-   */
-  CourseId: string;
-
   /**
    *    事件的长度
    */
-  EventDuration: number;
+  Duration: number;
 
   /**
    * 事件类型

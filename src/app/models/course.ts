@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import {CourseSource} from './course-source.enum';
+import {Event} from './event';
 
 /**
  * 表示一门课程, 它将包含普通的课堂、实验课以及考试。
@@ -29,7 +30,7 @@ export interface Course
   /**
    *   课程包含事件的集合
    */
-  Events: string[];
+  Events: Event[];
 
   /**
    *   课程是否被隐藏
@@ -50,5 +51,5 @@ export interface Course
   /**
    *   课程Id
    */
-  CourseId: string;
+  Id: string;
 }

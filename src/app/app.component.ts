@@ -13,21 +13,39 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { Component } from '@angular/core';
-import { User } from './models/user';
+import {Component, OnInit} from '@angular/core';
+import {User} from './models/user';
+import {UserService} from './services/user.service';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit
+{
+  public constructor(public userService: UserService)
+  {
+  }
 
   title = 'SchOOD';
   user: User = {
-    Name: 'stu',
-    Id: '0',
-    EnableNotification: true,
-    CalendarUrl: 'https://cms.hit.edu.cn'
+    name: 'stu',
+    id: '0',
+    enableNotification: true,
+    calendarUrl: 'https://cms.hit.edu.cn'
   };
+
+  public altNotify(): void
+  {
+    this.user.enableNotification = !this.user.enableNotification;
+    this.userService.updateUser(this.user);
+  }
+
+  ngOnInit(): void
+  {
+    this.userService.getUser()
+      .subscribe(u => this.user = u);
+  }
 }

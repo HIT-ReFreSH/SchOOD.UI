@@ -28,16 +28,7 @@ export class CoursesViewItemComponent implements OnInit
   LOCAL = CourseSource.Local;
 
   @Input()
-  Course: CourseSummary = {
-    Source: CourseSource.Local,
-    Hidden: false,
-    CourseName: 'Test',
-    Teacher: 'Test Teacher',
-    Location: '正心11',
-    Time: 'Test Time',
-    EnableNotification: false,
-    Id: '0'
-  };
+  Course!: CourseSummary;
 
   constructor(public courseService: CourseService)
   {

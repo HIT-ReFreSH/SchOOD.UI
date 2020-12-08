@@ -15,9 +15,9 @@
     <button class="btn float-right nav-link w-16 text-center"
             data-toggle="tooltip" data-placement="top"
 
-            [title]="event.Hidden?'解除隐藏': '隐藏'">
-      <i *ngIf="event.Hidden" class="fas fa-eye-slash"></i>
-      <i *ngIf="!event.Hidden" class="fas fa-eye"></i>
+            [title]="event.hidden?'解除隐藏': '隐藏'">
+      <i *ngIf="event.hidden" class="fas fa-eye-slash"></i>
+      <i *ngIf="!event.hidden" class="fas fa-eye"></i>
     </button>
   </div>
 
@@ -25,7 +25,7 @@
 
 <main role="main" class="container flex-column h-100" style="margin-bottom: 25%">
   <ul class="list-group list-group-flush shadow-sm mt-3 mb-5">
-    <li *ngIf="event.Type==COURSE" class="row m-3 w-auto">
+    <li *ngIf="event.type==COURSE" class="row m-3 w-auto">
       <div class="col-3">
         <i class="fas fa-chalkboard-teacher font-size-32"></i>
       </div>
@@ -35,7 +35,7 @@
       <div class="col-1">
       </div>
     </li>
-    <li *ngIf="event.Type==LAB" class="row m-3 w-auto">
+    <li *ngIf="event.type==LAB" class="row m-3 w-auto">
       <div class="col-3">
         <i class="fas fa-flask font-size-32"></i>
       </div>
@@ -45,7 +45,7 @@
       <div class="col-1">
       </div>
     </li>
-    <li *ngIf="event.Type==EXAM" class="row m-3 w-auto">
+    <li *ngIf="event.type==EXAM" class="row m-3 w-auto">
       <div class="col-3">
         <i class="fas fa-graduation-cap font-size-32"></i>
       </div>
@@ -60,7 +60,7 @@
         <i class="fas fa-clock font-size-32"></i>
       </div>
       <div class="col-7">
-        {{datetime.FormatDate(event.StartTime)}},&emsp;{{event.Duration}}分钟
+        {{datetime.FormatDate(event.startTime)}},&emsp;{{event.duration}}分钟
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"
@@ -79,8 +79,8 @@
         <i class="fas fa-calendar font-size-32"></i>
       </div>
       <div class="col-7">
-        第{{datetime.getWeekIndex(event.StartTime)}}周{{datetime.getWeekDay(this.event.StartTime)}},&emsp;
-        {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.Duration))}}
+        第{{datetime.getWeekIndex(event.startTime)}}周{{datetime.getWeekDay(this.event.startTime)}},&emsp;
+        {{datetime.FormatClassIndex(datetime.getClassIndex(event.startTime, event.type, event.duration))}}
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"
@@ -96,7 +96,7 @@
         <i class="fas fa-map-marker-alt font-size-32"></i>
       </div>
       <div class="col-7">
-        {{event.Location}}
+        {{event.location}}
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"
@@ -113,7 +113,7 @@
         <i class="fas fa-user-alt font-size-32"></i>
       </div>
       <div class="col-7">
-        {{event.Teacher}}
+        {{event.teacher}}
       </div>
       <div class="col-1">
         <button class="btn float-right nav-link text-center m-0"
@@ -129,11 +129,11 @@
   </ul>
 </main>
 <app-edit-string-dialog
-  ComponentId="editTeacher" [DefaultValue]="event.Teacher?event.Teacher:''"
+  ComponentId="editTeacher" [DefaultValue]="event.teacher?event.teacher:''"
   ValueTypeName="教师">
 </app-edit-string-dialog>
 <app-edit-string-dialog
-  ComponentId="editLocation" [DefaultValue]="event.Location?event.Location:''"
+  ComponentId="editLocation" [DefaultValue]="event.location?event.location:''"
   ValueTypeName="地点">
 </app-edit-string-dialog>
 <app-edit-school-time-dialog

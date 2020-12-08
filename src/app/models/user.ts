@@ -22,19 +22,19 @@ export interface User
   /**
    * 用户的名字
    */
-  Name: string;
+  name: string;
 
   /**
    * 用户的Id
    */
-  Id: string;
+  id: string;
 
   /**
    * 用户持有课表的Url
    */
-  CalendarUrl: string;
+  calendarUrl: string;
   /**
    * 是否启用本课程通知
    */
-  EnableNotification: boolean;
+  enableNotification: boolean;
 }

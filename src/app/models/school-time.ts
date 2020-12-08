@@ -20,10 +20,10 @@ import {SystemService} from '../services/system.service';
 
 export class SchoolTime {
   constructor(private event: Event, public datetime: DatetimeService, private system: SystemService) {
-    this.weekIndex = this.datetime.getWeekIndex(this.event.StartTime);
-    this.weekDay = this.datetime.getWeekDay(this.event.StartTime);
+    this.weekIndex = this.datetime.getWeekIndex(this.event.startTime);
+    this.weekDay = this.datetime.getWeekDay(this.event.startTime);
     this.classIndex = this.datetime.FormatClassIndex(
-      this.datetime.getClassIndex(this.event.StartTime, this.event.Type, this.event.Duration));
+      this.datetime.getClassIndex(this.event.startTime, this.event.type, this.event.duration));
     this.weekDays = this.datetime.WeekDays();
     for (let i = 1; i <= this.system.SemesterLength; i++) {
       this.weeks.push(i);
@@ -40,8 +40,8 @@ export class SchoolTime {
   public Export(): Event {
     const weekday = this.weekDays.lastIndexOf(this.weekDay);
     const classIndex = this.datetime.ClassIndexString.lastIndexOf(this.classIndex);
-    this.event.StartTime = this.datetime.FromSchoolFormat(this.weekIndex, weekday, classIndex, this.event.Type);
-    this.event.Duration = this.datetime.GetDuration(this.event.Type, classIndex);
+    this.event.startTime = this.datetime.FromSchoolFormat(this.weekIndex, weekday, classIndex, this.event.type).valueOf();
+    this.event.duration = this.datetime.GetDuration(this.event.type, classIndex);
     return this.event;
   }
 }

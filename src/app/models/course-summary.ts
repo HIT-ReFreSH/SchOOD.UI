@@ -24,43 +24,43 @@ export interface CourseSummary
   /**
    * 课程的来源
    */
-  Source: CourseSource;
+  source: CourseSource;
 
   /**
    * 课程是否被隐藏
    */
-  Hidden: boolean;
+  hidden: boolean;
 
   /**
    * 是否启用本课程通知
    */
-  EnableNotification: boolean;
+  enableNotification: boolean;
 
   /**
    * 课程的开始时间摘要, 为空则没有
    */
-  Time: string | null;
+  startTime: string | null;
 
   /**
    * 课程老师摘要，为空则没有
    */
-  Teacher: string | null;
+  teacher: string | null;
 
 
   /**
    * 课程地点摘要，为空则没有
    */
-  Location: string | null;
+  location: string | null;
 
 
   /**
    * 课程名称
    */
-  CourseName: string;
+  courseName: string;
 
   /**
    * 课程Id
    */
-  Id: string;
+  id: string;
 
 }

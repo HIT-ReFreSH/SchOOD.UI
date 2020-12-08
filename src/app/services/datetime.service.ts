@@ -22,13 +22,13 @@ import {PureTime} from '../models/pure-time';
 import {PureDate} from '../models/pure-date';
 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
-export class DatetimeService {
-  constructor(public system: SystemService) {
+export class DatetimeService
+{
+  constructor(public system: SystemService)
+  {
 
   }
 
@@ -45,10 +45,13 @@ export class DatetimeService {
 
   readonly baseline = new Date(2020, 11, 30);
 
-  public GetDuration(eventType: EventType, classIndex: number): number {
-    switch (eventType) {
+  public GetDuration(eventType: EventType, classIndex: number): number
+  {
+    switch (eventType)
+    {
       case EventType.Default:
-        if (classIndex % 3 === 1) {
+        if (classIndex % 3 === 1)
+        {
           return this.system.LongClassLength;
         }
         return this.system.ClassLength;
@@ -59,37 +62,54 @@ export class DatetimeService {
     }
   }
 
-  public FormatDate(date: Date): string {
+  public FormatDate(dateNum: number): string
+  {
+    const date = new Date(dateNum);
     return format(date, 'yyyy-MM-dd HH:mm');
   }
 
-  public FormatClassIndex(num: number): string {
+  public FormatClassIndex(num: number): string
+  {
     return this.ClassIndexString[num];
   }
 
-  public getClassIndex(date: Date, eventType: EventType, length: number): number {
-    const index = closestIndexTo(date, this.getStartArray(eventType).map(s => {
+  public getClassIndex(dateNum: number, eventType: EventType, length: number): number
+  {
+    const date = new Date(dateNum);
+    const index = closestIndexTo(date, this.getStartArray(eventType).map(s =>
+    {
+
       return set(s, {
         year: date.getFullYear(),
         month: date.getMonth(),
         date: date.getDate()
       });
     }));
+    if (index % 3 === 1 && length <= 200)
+    {
+      return index - 1;
+    }
     return length > 200 ? index + 1 : index;
   }
 
 
-  public getWeekDay(date: Date): string {
+  public getWeekDay(dateNum: number): string
+  {
+    const date = new Date(dateNum);
     return format(date, 'eeee', {locale: zhCN});
   }
 
-  public getWeekIndex(date: Date): number {
+  public getWeekIndex(dateNum: number): number
+  {
+    const date = new Date(dateNum);
     return differenceInWeeks(date, this.system.SemesterStart) + 1;
   }
 
-  public getStartArray(eventType: EventType): Date[] {
+  public getStartArray(eventType: EventType): Date[]
+  {
     let startArr: Date[];
-    switch (eventType) {
+    switch (eventType)
+    {
       case EventType.Default:
         startArr = this.system.StartTimes;
         break;
@@ -104,7 +124,8 @@ export class DatetimeService {
     return startArr;
   }
 
-  public FromSchoolFormat(weekIndex: number, weekDay: number, classIndex: number, courseType: EventType): Date {
+  public FromSchoolFormat(weekIndex: number, weekDay: number, classIndex: number, courseType: EventType): Date
+  {
     const startArr = this.getStartArray(courseType);
     return add(this.system.SemesterStart,
       {
@@ -115,7 +136,9 @@ export class DatetimeService {
     );
   }
 
-  public getDate(date: Date): PureDate {
+  public getDate(dateNum: number): PureDate
+  {
+    const date = new Date(dateNum);
     return {
       year: date.getFullYear(),
       month: date.getMonth() + 1,
@@ -123,7 +146,9 @@ export class DatetimeService {
     };
   }
 
-  public getTime(date: Date): PureTime {
+  public getTime(dateNum: number): PureTime
+  {
+    const date = new Date(dateNum);
     return {
       hour: date.getHours(),
       minute: date.getMinutes()
@@ -131,20 +156,24 @@ export class DatetimeService {
   }
 
 
-  public FromDateTimeFormat(date: PureDate, time: PureTime): Date {
+  public FromDateTimeFormat(date: PureDate, time: PureTime): Date
+  {
     return toDate(new Date(
       date.year, date.month, date.day, time.hour, time.minute, 0
     ));
   }
 
-  public FormatWeekDay(weekDay: number): string {
+  public FormatWeekDay(weekDay: number): string
+  {
     return format(addDays(this.baseline, weekDay), 'eeee', {locale: zhCN});
   }
 
-  public WeekDays(): string[] {
+  public WeekDays(): string[]
+  {
     const r: string[] = [];
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++)
+    {
       r.push(format(addDays(this.baseline, i), 'eeee', {locale: zhCN}));
     }
     return r;

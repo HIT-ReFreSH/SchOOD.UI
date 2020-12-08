@@ -20,13 +20,14 @@
  * SOFTWARE.
  */
 import {throwError, Observable} from 'rxjs';
+import {MessageService} from './message.service';
 
 /**
  * 服务类的基类
  */
 export abstract class BaseService
 {
-  protected constructor()
+  protected constructor(public messageService: MessageService)
   {
   }
 
@@ -34,7 +35,7 @@ export abstract class BaseService
   {
 
     const applicationError = error.headers.get('Application-Error');
-
+    this.messageService.addError(error);
     // either application-error in header or model error in body
     if (applicationError)
     {

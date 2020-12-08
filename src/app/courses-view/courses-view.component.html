@@ -5,23 +5,27 @@
     <div class="navbar-nav mr-auto">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="../Available" routerLinkActive="active">可用课程<span
-            class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="../Available" routerLinkActive="active">可用课程
+            <span *ngIf="filter==='Available'"
+                  class="badge badge-pill badge-light">{{count}}</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="../All" routerLinkActive="active">全部课程<span
-            class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="../All" routerLinkActive="active">全部课程
+            <span *ngIf="filter==='All'" class="badge badge-pill badge-light">{{count}}</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="../Hidden" routerLinkActive="active">隐藏的课程<span
-            class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="../Hidden" routerLinkActive="active">隐藏的课程
+            <span *ngIf="filter==='Hidden'" class="badge badge-pill badge-light">{{count}}</span></a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="../Local" routerLinkActive="active">我的课程
+            <span *ngIf="filter==='Local'" class="badge badge-pill badge-light">{{count}}</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="../Local" routerLinkActive="active">我的课程<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="../Shared" routerLinkActive="active">共享的课程<span
-            class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="../Shared" routerLinkActive="active">共享的课程
+            <span *ngIf="filter==='Shared'" class="badge badge-pill badge-light">{{count}}</span>
+          </a>
         </li>
       </ul>
 

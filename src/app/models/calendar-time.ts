@@ -25,14 +25,14 @@ export class CalendarTime {
   public duration: number;
 
   constructor(private event: Event, private datetime: DatetimeService) {
-    this.pureDate = this.datetime.getDate(this.event.StartTime);
-    this.time = this.datetime.getTime(this.event.StartTime);
-    this.duration = this.event.Duration;
+    this.pureDate = this.datetime.getDate(this.event.startTime);
+    this.time = this.datetime.getTime(this.event.startTime);
+    this.duration = this.event.duration;
   }
 
   public Export(): Event {
-    this.event.StartTime = this.datetime.FromDateTimeFormat(this.pureDate, this.time);
-    this.event.Duration = this.duration;
+    this.event.startTime = this.datetime.FromDateTimeFormat(this.pureDate, this.time).valueOf();
+    this.event.duration = this.duration;
     return this.event;
   }
 }

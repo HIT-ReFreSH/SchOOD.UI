@@ -14,28 +14,70 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CourseService} from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-add-dialog',
   templateUrl: './add-dialog.component.html',
   styleUrls: ['./add-dialog.component.css']
 })
-export class AddDialogComponent implements OnInit {
+export class AddDialogComponent implements OnInit
+{
   @Input()
   ComponentId!: string;
   courseId = '';
   courseSummary = '点击输入框右侧按钮可以查看摘要哦~';
-  courseSummaryError = false;
+  courseSummaryError = true;
   scheduleId = '';
   scheduleSummary = '点击输入框右侧按钮可以查看摘要哦~';
-  scheduleSummaryError = false;
+  scheduleSummaryError = true;
 
   @Output()
   public Added = new EventEmitter();
 
-  constructor() { }
+  public getCourseSummary(): void
+  {
+    this.courseService.peekCourse(this.courseId).subscribe(
+      s =>
+      {
+        if (s === '')
+        {
+          this.courseSummaryError = true;
+          this.courseSummary = '无法获取课程信息。';
+        } else
+        {
+          this.courseSummaryError = false;
+          this.courseSummary = s;
+        }
+      }
+    );
+  }
 
-  ngOnInit(): void {
+  public getScheduleSummary(): void
+  {
+    this.courseService.peekSchedule(this.scheduleId).subscribe(
+      s =>
+      {
+        if (s === '')
+        {
+          this.scheduleSummaryError = true;
+          this.scheduleSummary = '无法获取课表信息。';
+        } else
+        {
+          this.scheduleSummaryError = false;
+          this.scheduleSummary = s;
+        }
+      }
+    );
+  }
+
+
+  constructor(private courseService: CourseService)
+  {
+  }
+
+  ngOnInit(): void
+  {
   }
 
 }

@@ -19,13 +19,15 @@ import {User} from '../models/user';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {MessageService} from './message.service';
+import {JsonPipe} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService extends BaseService
 {
-  private usersUrl = '/User';
+  private usersUrl = '/api/User';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -42,11 +44,12 @@ export class UserService extends BaseService
 
   public getUser(): Observable<User>
   {
-
-    return this.http.get<User>(this.usersUrl)
+    const r = this.http.get<User>(this.usersUrl)
       .pipe(
         catchError(this.handleError)
       );
+    r.subscribe(c => console.log(c));
+    return r;
 
 
     // throw new Error();
@@ -60,8 +63,8 @@ export class UserService extends BaseService
     );
   }
 
-  constructor(private http: HttpClient)
+  constructor(private http: HttpClient, public messageService: MessageService)
   {
-    super();
+    super(messageService);
   }
 }

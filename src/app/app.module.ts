@@ -32,9 +32,11 @@ import {FormsModule} from '@angular/forms';
 import {ClipboardModule} from 'ngx-clipboard';
 import {EditSchoolTimeDialogComponent} from './event-detail/edit-school-time-dialog/edit-school-time-dialog.component';
 import {EditCalendarTimeDialogComponent} from './event-detail/edit-calendar-time-dialog/edit-calendar-time-dialog.component';
-import {NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbTimepickerModule, NgbToastModule} from '@ng-bootstrap/ng-bootstrap';
 import {CoursesViewComponent} from './courses-view/courses-view.component';
 import {AboutComponent} from './about/about.component';
+import { MessagesComponent } from './messages/messages.component';
+import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import {AboutComponent} from './about/about.component';
     EditCalendarTimeDialogComponent,
     CoursesViewComponent,
     AboutComponent,
+    MessagesComponent,
 
   ],
   imports: [
@@ -63,7 +66,9 @@ import {AboutComponent} from './about/about.component';
     ClipboardModule,
     NgbTimepickerModule,
     NgbDatepickerModule,
-
+    NgbToastModule,
+    HttpClientModule,
+    HttpClientJsonpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

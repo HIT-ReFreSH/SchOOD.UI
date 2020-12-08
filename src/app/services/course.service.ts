@@ -21,24 +21,28 @@ import {Event} from '../models/event';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {MessageService} from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService extends BaseService
 {
-  private coursesUrl = '/Courses';
-  private courseUrl = '/Course';
+  private coursesUrl = '/api/Courses';
+  private courseUrl = '/api/Course';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   public getCourse(id: string): Observable<Course>
   {
+
     const url = `${this.courseUrl}/${id}`;
-    return this.http.get<Course>(url).pipe(
+    const r = this.http.get<Course>(url).pipe(
       catchError(this.handleError)
     );
+    r.subscribe(r => console.log(r));
+    return r;
 
 
   }
@@ -135,7 +139,7 @@ export class CourseService extends BaseService
   public updateCourse(course: Course): void
   {
 
-    const url = `${this.courseUrl}/${course.Id}`;
+    const url = `${this.courseUrl}/${course.id}`;
     this.http.put(url, course, this.httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -144,7 +148,7 @@ export class CourseService extends BaseService
   public updateEvent(event: Event): void
   {
 
-    const url = `${this.courseUrl}/Event/${event.Id}`;
+    const url = `${this.courseUrl}/Event/${event.id}`;
     this.http.put(url, event, this.httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -168,8 +172,8 @@ export class CourseService extends BaseService
     );
   }
 
-  constructor(private http: HttpClient)
+  constructor(private http: HttpClient, public messageService: MessageService)
   {
-    super();
+    super(messageService);
   }
 }

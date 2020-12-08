@@ -34,13 +34,13 @@ export class EventDetailComponent implements OnInit
   readonly COURSE = EventType.Default;
 
   event: Event = {
-    StartTime: new Date('18:00 2020/11/30'),
-    Hidden: false,
-    Teacher: 'Test-Teacher',
-    Id: 'aaa',
-    Location: '正心34',
-    Duration: 120,
-    Type: EventType.Default
+    startTime: new Date('18:00 2020/11/30').valueOf(),
+    hidden: false,
+    teacher: 'Test-Teacher',
+    id: 'aaa',
+    location: '正心34',
+    duration: 120,
+    type: EventType.Default
   };
 
 

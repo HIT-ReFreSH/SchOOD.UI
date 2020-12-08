@@ -28,16 +28,17 @@ export class CoursesViewContainerComponent implements OnInit
   @Input()
   public Courses$: Observable<CourseSummary[]> = of([
     {
-      Source: CourseSource.Local,
-      Hidden: false,
-      CourseName: 'Test',
-      Teacher: 'Test Teacher',
-      Location: '正心11',
-      Time: 'Test Time',
-      EnableNotification: false,
-      Id: '0'
+      source: CourseSource.Local,
+      hidden: false,
+      courseName: 'Test',
+      teacher: 'Test Teacher',
+      location: '正心11',
+      startTime: 'Test Time',
+      enableNotification: false,
+      id: '0'
     }
   ]);
+  public Courses: CourseSummary[] = [];
 
   constructor()
   {
@@ -45,7 +46,8 @@ export class CoursesViewContainerComponent implements OnInit
 
   ngOnInit(): void
   {
-
+    this.Courses$.subscribe(c => this.Courses = c);
+    console.log()
   }
 
 }

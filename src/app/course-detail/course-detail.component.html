@@ -4,7 +4,7 @@
   <div class="collapse navbar-collapse" id="navbar">
     <div class="navbar-nav mr-auto">
 
-      <span class="table-item-text">课程详情: {{course.CourseName}}</span>
+      <span class="table-item-text">课程详情: {{course.courseName}}</span>
       <button class="btn float-right nav-link text-center m-0"
 
               data-toggle="modal" data-target="#editCourseName"
@@ -29,20 +29,20 @@
       ></i>
     </button>
     <button class="btn float-right nav-link w-16 text-center">
-      <i *ngIf="course.EnableNotification"
+      <i *ngIf="course.enableNotification"
          data-toggle="tooltip" data-placement="top" title="关闭通知"
          class="fas fa-bell"></i>
-      <i *ngIf="!course.EnableNotification"
+      <i *ngIf="!course.enableNotification"
          data-toggle="tooltip" data-placement="top" title="启用通知"
          class="fas fa-bell-slash"></i>
     </button>
     <button class="btn float-right nav-link w-16 text-center"
             data-toggle="tooltip" data-placement="top"
 
-            [title]="course.Hidden?'解除隐藏': course.Source==LOCAL? '隐藏':'移除'">
-      <i *ngIf="course.Hidden" class="fas fa-eye-slash"></i>
-      <i *ngIf="!course.Hidden && course.Source==LOCAL" class="fas fa-eye"></i>
-      <i *ngIf="!course.Hidden && course.Source!=LOCAL" class="fas fa-times"></i>
+            [title]="course.hidden?'解除隐藏': course.source==LOCAL? '隐藏':'移除'">
+      <i *ngIf="course.hidden" class="fas fa-eye-slash"></i>
+      <i *ngIf="!course.hidden && course.source==LOCAL" class="fas fa-eye"></i>
+      <i *ngIf="!course.hidden && course.source!=LOCAL" class="fas fa-times"></i>
     </button>
   </div>
 
@@ -63,27 +63,27 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let event of course.Events">
+      <tr *ngFor="let event of course.events">
         <th scope="row" class="table-item-text">
-          {{datetime.getWeekIndex(event.StartTime)}}
+          {{datetime.getWeekIndex(event.startTime)}}
         </th>
         <td class="table-item-text">
-          {{datetime.getWeekDay(event.StartTime)}}
+          {{datetime.getWeekDay(event.startTime)}}
         </td>
         <td class="table-item-text">
-          {{datetime.FormatClassIndex(datetime.getClassIndex(event.StartTime, event.Type, event.Duration))}}
+          {{datetime.FormatClassIndex(datetime.getClassIndex(event.startTime, event.type, event.duration))}}
         </td>
         <td class="table-item-text">
-          {{event.Location}}
+          {{event.location}}
         </td>
         <td class="table-item-text">
-          {{event.Teacher}}
+          {{event.teacher}}
         </td>
         <td class="table-item-text">
-          {{FormatType(event.Type)}}
+          {{FormatType(event.type)}}
         </td>
         <td>
-          <a class="btn text-center h-auto" routerLink="/Event/{{event.Id}}">
+          <a class="btn text-center h-auto" routerLink="/Event/{{event.id}}">
             <i class="fas fa-ellipsis-v" style="font-size:4px;vertical-align:bottom">
 
             </i>
@@ -97,8 +97,8 @@
 
 </main>
 <app-edit-string-dialog
-  ComponentId="editCourseName" [DefaultValue]="course.CourseName"
+  ComponentId="editCourseName" [DefaultValue]="course.courseName"
   (ValueSubmitted)="updateCourseName($event)"
   ValueTypeName="课程名称">
 </app-edit-string-dialog>
-<app-share-dialog [TargetId]="course.Id" ShareType="课程" ComponentId="share-course"></app-share-dialog>
+<app-share-dialog [TargetId]="course.id" ShareType="课程" ComponentId="share-course"></app-share-dialog>

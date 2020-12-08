@@ -27,36 +27,36 @@ export interface Event
   /**
    *    课程的开始时间
    */
-  StartTime: Date;
+  startTime: number;
 
   /**
    *    事件是否被隐藏
    */
-  Hidden: boolean;
+  hidden: boolean;
 
   /**
    *    事件的老师，为空则没有
    */
-  Teacher: string | null;
+  teacher: string | null;
 
   /**
    *    事件Id
    */
-  Id: string;
+  id: string;
 
   /**
    *    事件执行的地点，为空则没有
    */
-  Location: string | null;
+  location: string | null;
   /**
    *    事件的长度
    */
-  Duration: number;
+  duration: number;
 
   /**
    * 事件类型
    */
-  Type: EventType;
+  type: EventType;
 
 
 }

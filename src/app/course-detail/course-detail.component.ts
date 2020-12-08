@@ -13,49 +13,54 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {Component, OnInit} from '@angular/core';
-import { Course } from '../models/course';
-import { CourseSource } from '../models/course-source.enum';
-import { EventType } from '../models/event-type.enum';
-import { DatetimeService } from '../services/datetime.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Course} from '../models/course';
+import {CourseSource} from '../models/course-source.enum';
+import {EventType} from '../models/event-type.enum';
+import {DatetimeService} from '../services/datetime.service';
 import {Location} from '@angular/common';
+import {CourseService} from '../services/course.service';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css']
 })
-export class CourseDetailComponent implements OnInit
+export class CourseDetailComponent implements OnInit, OnDestroy
 {
+
 
   LOCAL = CourseSource.Local;
   course: Course = {
-    Source: CourseSource.Local,
-    Events: [
+    source: CourseSource.Local,
+    events: [
       {
-        StartTime: new Date('18:00 2020/11/30'),
-        Hidden: false,
-        Teacher: 'Test-Teacher',
-        Id: 'aaa',
-        Location: '正心34',
-        Duration: 120,
-        Type: EventType.Default
+        startTime: new Date('18:00 2020/11/30').valueOf(),
+        hidden: false,
+        teacher: 'Test-Teacher',
+        id: 'aaa',
+        location: '正心34',
+        duration: 120,
+        type: EventType.Default
       },
       {
-        StartTime: new Date('18:00 2020/11/29'),
-        Hidden: true,
-        Teacher: 'Test-Teacher',
-        Id: 'bbb',
-        Location: '正心31',
-        Duration: 120,
-        Type: EventType.Default
+        startTime: new Date('18:00 2020/11/29').valueOf(),
+        hidden: true,
+        teacher: 'Test-Teacher',
+        id: 'bbb',
+        location: '正心31',
+        duration: 120,
+        type: EventType.Default
       }
     ],
-    Hidden: false,
-    EnableNotification: false,
-    CourseName: 'TestCourse',
-    Id: 'ccc'
+    hidden: false,
+    enableNotification: false,
+    courseName: 'TestCourse',
+    id: 'ccc'
   };
+  private routerSubscription!: Subscription;
 
   public FormatType(type: EventType): string
   {
@@ -72,15 +77,45 @@ export class CourseDetailComponent implements OnInit
 
   public updateCourseName(newCourseName: string): void
   {
-    this.course.CourseName = newCourseName;
+    this.course.courseName = newCourseName;
   }
 
-  constructor(public datetime: DatetimeService, public location: Location)
+  constructor(public datetime: DatetimeService,
+              public location: Location,
+              public courseService: CourseService,
+              private route: ActivatedRoute,
+              private router: Router)
   {
+  }
+
+  public Load(): void
+  {
+    // @ts-ignore
+    const id = this.route.snapshot.paramMap.get('id');
+    this.router.onSameUrlNavigation = 'reload';
+    if (typeof id === 'string')
+    {
+      this.courseService.getCourse(id).subscribe(c => this.course = c);
+    }
+
+
   }
 
   ngOnInit(): void
   {
+    this.routerSubscription = this.router.events.subscribe((event) =>
+    {
+      if (event instanceof NavigationEnd)
+      {
+        this.Load();
+      }
+    });
+    this.Load();
+  }
+
+  ngOnDestroy(): void
+  {
+    this.routerSubscription.unsubscribe();
   }
 
 }

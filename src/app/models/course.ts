@@ -25,31 +25,31 @@ export interface Course
   /**
    *   课程的来源
    */
-  Source: CourseSource;
+  source: CourseSource;
 
   /**
    *   课程包含事件的集合
    */
-  Events: Event[];
+  events: Event[];
 
   /**
    *   课程是否被隐藏
    */
-  Hidden: boolean;
+  hidden: boolean;
 
   /**
    *   是否启用本课程通知
    */
-  EnableNotification: boolean;
+  enableNotification: boolean;
 
 
   /**
    *   课程名称
    */
-  CourseName: string;
+  courseName: string;
 
   /**
    *   课程Id
    */
-  Id: string;
+  id: string;
 }

@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div class="card-footer bg-white clearfix">
-                <button type="button" class="btn btn-success float-right" data-dismiss="modal">添加</button>
+                <button type="button" class="btn btn-success float-right" [disabled]="scheduleSummaryError" data-dismiss="modal">添加</button>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="card-footer bg-white clearfix">
-                <button type="button" class="btn btn-success float-right" data-dismiss="modal">添加</button>
+                <button type="button" class="btn btn-success float-right" [disabled]="scheduleSummaryError" data-dismiss="modal">添加</button>
               </div>
             </div>
           </div>

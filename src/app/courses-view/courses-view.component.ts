@@ -28,54 +28,60 @@ import {CourseSource} from '../models/course-source.enum';
 export class CoursesViewComponent implements OnInit, OnDestroy
 {
 
-  public Courses$: Observable<CourseSummary[]> = of([
-    {
-      Source: CourseSource.Local,
-      Hidden: false,
-      CourseName: 'Test',
-      Teacher: 'Test Teacher',
-      Location: '正心11',
-      Time: 'Test Time',
-      EnableNotification: false,
-      Id: '0'
-    }
-  ]);
-  private filter: string | null = 'Available';
-  private routerSubscription!: Subscription;
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private courseService: CourseService)
   {
   }
 
+  public Courses$: Observable<CourseSummary[]> = of([
+    {
+      source: CourseSource.Local,
+      hidden: false,
+      courseName: 'Test',
+      teacher: 'Test Teacher',
+      location: '正心11',
+      startTime: 'Test Time',
+      enableNotification: false,
+      id: '0'
+    }
+  ]);
+  filter: string | null = 'Available';
+  private routerSubscription!: Subscription;
+
+  count = 0;
+
   ngOnDestroy(): void
   {
     this.routerSubscription.unsubscribe();
   }
 
-
   public Load(): void
   {
     this.filter = this.route.snapshot.paramMap.get('filter');
     this.router.onSameUrlNavigation = 'reload';
-    console.log('onload');
-    console.log(this.filter);
     switch (this.filter)
     {
       case 'Available':
-
+        this.Courses$ = this.courseService.getCourses();
+        break;
       case 'All':
+        this.Courses$ = this.courseService.getAllCourses();
+        break;
       case 'Local':
+        this.Courses$ = this.courseService.getLocalCourses();
+        break;
       case 'Hidden':
+        this.Courses$ = this.courseService.getHiddenCourses();
+        break;
       case 'Shared':
+        this.Courses$ = this.courseService.getLinkedCourses();
         break;
       default:
         const del = this.router.navigateByUrl('/Courses/Available');
-
         break;
-
     }
+    this.Courses$.subscribe(c => this.count = c.length);
   }
 
   ngOnInit(): void

@@ -27,7 +27,8 @@ import {catchError} from 'rxjs/operators';
 })
 export class CourseService extends BaseService
 {
-  private courseUrl = '/Courses';
+  private coursesUrl = '/Courses';
+  private courseUrl = '/Course';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -65,7 +66,7 @@ export class CourseService extends BaseService
   public getCourses(): Observable<CourseSummary[]>
   {
 
-    return this.http.get<CourseSummary[]>(this.courseUrl).pipe(
+    return this.http.get<CourseSummary[]>(this.coursesUrl).pipe(
       catchError(this.handleError)
     );
 
@@ -74,7 +75,7 @@ export class CourseService extends BaseService
   public getHiddenCourses(): Observable<CourseSummary[]>
   {
 
-    const url = `${this.courseUrl}/Hidden`;
+    const url = `${this.coursesUrl}/Hidden`;
     return this.http.get<CourseSummary[]>(url).pipe(
       catchError(this.handleError)
     );
@@ -84,7 +85,7 @@ export class CourseService extends BaseService
   public getAllCourses(): Observable<CourseSummary[]>
   {
 
-    const url = `${this.courseUrl}/All`;
+    const url = `${this.coursesUrl}/All`;
     return this.http.get<CourseSummary[]>(url).pipe(
       catchError(this.handleError)
     );
@@ -94,7 +95,7 @@ export class CourseService extends BaseService
   public getLinkedCourses(): Observable<CourseSummary[]>
   {
 
-    const url = `${this.courseUrl}/Linked`;
+    const url = `${this.coursesUrl}/Linked`;
     return this.http.get<CourseSummary[]>(url).pipe(
       catchError(this.handleError)
     );
@@ -104,7 +105,7 @@ export class CourseService extends BaseService
   public getLocalCourses(): Observable<CourseSummary[]>
   {
 
-    const url = `${this.courseUrl}/Local`;
+    const url = `${this.coursesUrl}/Local`;
     return this.http.get<CourseSummary[]>(url).pipe(
       catchError(this.handleError)
     );
@@ -114,7 +115,7 @@ export class CourseService extends BaseService
   public peekCourse(id: string): Observable<string>
   {
 
-    const url = `${this.courseUrl}/PeekCourse?id=${id}`;
+    const url = `${this.coursesUrl}/PeekCourse?id=${id}`;
     return this.http.get<string>(url).pipe(
       catchError(this.handleError)
     );
@@ -124,7 +125,7 @@ export class CourseService extends BaseService
   public peekSchedule(id: string): Observable<string>
   {
 
-    const url = `${this.courseUrl}/PeekSchedule?id=${id}`;
+    const url = `${this.coursesUrl}/PeekSchedule?id=${id}`;
     return this.http.get<string>(url).pipe(
       catchError(this.handleError)
     );
@@ -143,7 +144,7 @@ export class CourseService extends BaseService
   public updateEvent(event: Event): void
   {
 
-    const url = `${this.courseUrl}/${event.Id}`;
+    const url = `${this.courseUrl}/Event/${event.Id}`;
     this.http.put(url, event, this.httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -152,7 +153,7 @@ export class CourseService extends BaseService
   public linkCourse(id: string): void
   {
 
-    const url = `${this.courseUrl}/LinkCourse`;
+    const url = `${this.coursesUrl}/LinkCourse`;
     this.http.post<Course>(url, id, this.httpOptions).pipe(
       catchError(this.handleError)
     );
@@ -161,7 +162,7 @@ export class CourseService extends BaseService
   public linkSchedule(id: string): void
   {
 
-    const url = `${this.courseUrl}/LinkSchedule`;
+    const url = `${this.coursesUrl}/LinkSchedule`;
     this.http.post<Course>(url, id, this.httpOptions).pipe(
       catchError(this.handleError)
     );

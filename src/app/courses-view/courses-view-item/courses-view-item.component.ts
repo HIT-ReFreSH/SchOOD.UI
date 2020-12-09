@@ -13,10 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CourseService} from '../../services/course.service';
 import {CourseSummary} from '../../models/course-summary';
 import {CourseSource} from '../../models/course-source.enum';
+import {MessageService} from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-courses-view-item',
@@ -29,9 +30,47 @@ export class CoursesViewItemComponent implements OnInit
 
   @Input()
   Course!: CourseSummary;
+  @Output()
+  Reload = new EventEmitter();
 
-  constructor(public courseService: CourseService)
+  constructor(public courseService: CourseService,
+              private msg: MessageService)
   {
+  }
+
+
+  toggleHidden(): void
+  {
+    this.courseService.getCourse(this.Course.id)
+      .subscribe(c =>
+      {
+        c.hidden = !c.hidden;
+        this.courseService.updateCourse(c).subscribe(() =>
+        {
+          if (this.Course.source === CourseSource.Shared)
+          {
+            this.Reload.emit();
+          } else
+          {
+            this.Course.hidden = !this.Course.hidden;
+          }
+          this.msg.addOk();
+        });
+      });
+  }
+
+  toggleNotify(): void
+  {
+    this.courseService.getCourse(this.Course.id)
+      .subscribe(c =>
+      {
+        c.enableNotification = !c.enableNotification;
+        this.courseService.updateCourse(c).subscribe(() =>
+        {
+          this.Course.enableNotification = !this.Course.enableNotification;
+          this.msg.addOk();
+        });
+      });
   }
 
   ngOnInit(): void

@@ -18,14 +18,17 @@ import {DatetimeService} from '../services/datetime.service';
 import {Event} from './event';
 import {SystemService} from '../services/system.service';
 
-export class SchoolTime {
-  constructor(private event: Event, public datetime: DatetimeService, private system: SystemService) {
+export class SchoolTime
+{
+  constructor(private event: Event, public datetime: DatetimeService, private system: SystemService)
+  {
     this.weekIndex = this.datetime.getWeekIndex(this.event.startTime);
     this.weekDay = this.datetime.getWeekDay(this.event.startTime);
     this.classIndex = this.datetime.FormatClassIndex(
       this.datetime.getClassIndex(this.event.startTime, this.event.type, this.event.duration));
     this.weekDays = this.datetime.WeekDays();
-    for (let i = 1; i <= this.system.SemesterLength; i++) {
+    for (let i = 1; i <= this.system.SemesterLength; i++)
+    {
       this.weeks.push(i);
     }
   }
@@ -37,11 +40,13 @@ export class SchoolTime {
   public weeks: number[] = [];
   public classIndex = '';
 
-  public Export(): Event {
+  public Export(): Event
+  {
     const weekday = this.weekDays.lastIndexOf(this.weekDay);
     const classIndex = this.datetime.ClassIndexString.lastIndexOf(this.classIndex);
-    this.event.startTime = this.datetime.FromSchoolFormat(this.weekIndex, weekday, classIndex, this.event.type).valueOf();
-    this.event.duration = this.datetime.GetDuration(this.event.type, classIndex);
-    return this.event;
+    const event = Object.assign({}, this.event);
+    event.startTime = this.datetime.FromSchoolFormat(this.weekIndex, weekday, classIndex, this.event.type).valueOf();
+    event.duration = this.datetime.GetDuration(this.event.type, classIndex);
+    return event;
   }
 }

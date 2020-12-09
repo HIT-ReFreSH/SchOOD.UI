@@ -37,6 +37,7 @@ import {CoursesViewComponent} from './courses-view/courses-view.component';
 import {AboutComponent} from './about/about.component';
 import { MessagesComponent } from './messages/messages.component';
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
     CoursesViewComponent,
     AboutComponent,
     MessagesComponent,
+    ConfirmDialogComponent,
 
   ],
   imports: [

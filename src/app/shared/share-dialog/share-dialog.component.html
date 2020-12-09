@@ -22,6 +22,7 @@
 
               <div class="input-group-append">
                 <button
+                  (click)="msg.addInfo('复制成功')"
                   [ngxClipboard]="input"
                   class="btn btn-secondary" type="button"
                   data-toggle="tooltip" data-placement="top"

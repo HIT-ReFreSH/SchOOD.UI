@@ -22,7 +22,7 @@ export class MessageService
     });
   }
 
-  addOk(message: string): void
+  addOk(message = '操作成功'): void
   {
     this.messages.push({
       message,

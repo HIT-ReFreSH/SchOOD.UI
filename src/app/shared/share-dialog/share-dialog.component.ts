@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import {Component, Input, OnInit} from '@angular/core';
+import {MessageService} from 'src/app/services/message.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './share-dialog.component.html',
   styleUrls: ['./share-dialog.component.css']
 })
-export class ShareDialogComponent implements OnInit {
+export class ShareDialogComponent implements OnInit
+{
   @Input()
   ComponentId!: string;
   @Input()
@@ -29,12 +31,13 @@ export class ShareDialogComponent implements OnInit {
   @Input()
   ShareType!: string;
 
-  constructor() {
+  constructor(public msg: MessageService)
+  {
   }
 
 
-
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
 }

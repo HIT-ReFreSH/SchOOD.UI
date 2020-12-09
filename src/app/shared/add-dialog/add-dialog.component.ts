@@ -15,6 +15,8 @@ limitations under the License.
 */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CourseService} from 'src/app/services/course.service';
+import {MessageService} from 'src/app/services/message.service';
+import {QueryResult} from '../../models/query-result.enum';
 
 @Component({
   selector: 'app-add-dialog',
@@ -40,14 +42,22 @@ export class AddDialogComponent implements OnInit
     this.courseService.peekCourse(this.courseId).subscribe(
       s =>
       {
-        if (s === '')
+        switch (s.result)
         {
-          this.courseSummaryError = true;
-          this.courseSummary = '无法获取课程信息。';
-        } else
-        {
-          this.courseSummaryError = false;
-          this.courseSummary = s;
+          case QueryResult.Available:
+            this.courseSummaryError = false;
+            this.courseSummary = s.value;
+            break;
+          case QueryResult.Forbidden:
+            this.courseSummaryError = true;
+            this.courseSummary = '该课程已经被禁用';
+            this.messageService.addError('查询失败：课程已禁用');
+            break;
+          case QueryResult.NotFound:
+            this.courseSummaryError = true;
+            this.courseSummary = '未找到该课程';
+            this.messageService.addError('查询失败：课程未找到');
+            break;
         }
       }
     );
@@ -58,21 +68,46 @@ export class AddDialogComponent implements OnInit
     this.courseService.peekSchedule(this.scheduleId).subscribe(
       s =>
       {
-        if (s === '')
+        switch (s.result)
         {
-          this.scheduleSummaryError = true;
-          this.scheduleSummary = '无法获取课表信息。';
-        } else
-        {
-          this.scheduleSummaryError = false;
-          this.scheduleSummary = s;
+          case QueryResult.Available:
+            this.scheduleSummaryError = false;
+            this.scheduleSummary = s.value;
+            break;
+          case QueryResult.Forbidden:
+            this.scheduleSummaryError = true;
+            this.scheduleSummary = '该课表已经被禁用';
+            this.messageService.addError('查询失败：课表已禁用');
+            break;
+          case QueryResult.NotFound:
+            this.scheduleSummaryError = true;
+            this.scheduleSummary = '未找到该课表';
+            this.messageService.addError('查询失败：课表未找到');
+            break;
         }
       }
     );
   }
 
+  public addCourse(): void
+  {
+    this.courseService.linkCourse(this.courseId).subscribe(() =>
+    {
+      this.messageService.addOk(`成功添加课程: ${this.courseId}`);
+      this.Added.emit();
+    });
+  }
 
-  constructor(private courseService: CourseService)
+  public addSchedule(): void
+  {
+    this.courseService.linkSchedule(this.scheduleId).subscribe(() =>
+    {
+      this.messageService.addOk(`成功添加课表: ${this.scheduleId}`);
+      this.Added.emit();
+    });
+  }
+
+  constructor(private courseService: CourseService, private messageService: MessageService)
   {
   }
 

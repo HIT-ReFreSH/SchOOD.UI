@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {CourseService} from '../services/course.service';
 import {Observable, of, Subscription} from 'rxjs';
@@ -51,6 +51,8 @@ export class CoursesViewComponent implements OnInit, OnDestroy
 
   count = 0;
 
+  location = window.location;
+
   ngOnDestroy(): void
   {
     this.routerSubscription.unsubscribe();
@@ -58,6 +60,7 @@ export class CoursesViewComponent implements OnInit, OnDestroy
 
   public Load(): void
   {
+
     this.filter = this.route.snapshot.paramMap.get('filter');
     this.router.onSameUrlNavigation = 'reload';
     switch (this.filter)
@@ -78,7 +81,7 @@ export class CoursesViewComponent implements OnInit, OnDestroy
         this.Courses$ = this.courseService.getLinkedCourses();
         break;
       default:
-        const del = this.router.navigateByUrl('/Courses/Available');
+        this.router.navigateByUrl('/Courses/Available');
         break;
     }
     this.Courses$.subscribe(c => this.count = c.length);
@@ -90,7 +93,7 @@ export class CoursesViewComponent implements OnInit, OnDestroy
     {
       if (event instanceof NavigationEnd)
       {
-        this.Load();
+        window.location.reload();
       }
     });
     this.Load();

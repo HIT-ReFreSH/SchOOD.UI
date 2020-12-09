@@ -31,8 +31,9 @@ export class CalendarTime {
   }
 
   public Export(): Event {
-    this.event.startTime = this.datetime.FromDateTimeFormat(this.pureDate, this.time).valueOf();
-    this.event.duration = this.duration;
-    return this.event;
+    const event = Object.assign({}, this.event);
+    event.startTime = this.datetime.FromDateTimeFormat(this.pureDate, this.time).valueOf();
+    event.duration = this.duration;
+    return event;
   }
 }

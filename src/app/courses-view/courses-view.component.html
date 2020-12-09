@@ -42,6 +42,6 @@
 
 </nav>
 
-<app-courses-view-container [Courses$]="Courses$"></app-courses-view-container>
+<app-courses-view-container [Courses$]="Courses$" (Reload)="location.reload()"></app-courses-view-container>
 
-<app-add-dialog ComponentId="add"></app-add-dialog>
+<app-add-dialog ComponentId="add" (Added)="location.reload()"></app-add-dialog>

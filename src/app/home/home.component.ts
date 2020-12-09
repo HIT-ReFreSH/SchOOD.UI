@@ -33,8 +33,4 @@ export class HomeComponent implements OnInit
   {
   }
 
-  changeSidebarStatus(): void
-  {
-    this.sidebarStatus = !this.sidebarStatus;
-  }
 }

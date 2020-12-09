@@ -16,7 +16,7 @@ limitations under the License.
 import {Component, OnInit} from '@angular/core';
 import {User} from './models/user';
 import {UserService} from './services/user.service';
-import {Observable, of} from 'rxjs';
+import {MessageService} from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +25,8 @@ import {Observable, of} from 'rxjs';
 })
 export class AppComponent implements OnInit
 {
-  public constructor(public userService: UserService)
+  public constructor(public userService: UserService,
+                     public messageService: MessageService)
   {
   }
 
@@ -39,8 +40,15 @@ export class AppComponent implements OnInit
 
   public altNotify(): void
   {
-    this.user.enableNotification = !this.user.enableNotification;
-    this.userService.updateUser(this.user);
+    const newUser = Object.assign({}, this.user);
+    newUser.enableNotification = !newUser.enableNotification;
+    this.userService.updateUser(newUser).subscribe(
+      _ =>
+      {
+        this.user.enableNotification = !this.user.enableNotification;
+        this.messageService.addOk();
+      }
+    );
   }
 
   ngOnInit(): void

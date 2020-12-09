@@ -28,22 +28,42 @@
 
       ></i>
     </button>
-    <button class="btn float-right nav-link w-16 text-center">
-      <i *ngIf="course.enableNotification"
-         data-toggle="tooltip" data-placement="top" title="关闭通知"
-         class="fas fa-bell"></i>
-      <i *ngIf="!course.enableNotification"
-         data-toggle="tooltip" data-placement="top" title="启用通知"
-         class="fas fa-bell-slash"></i>
-    </button>
-    <button class="btn float-right nav-link w-16 text-center"
-            data-toggle="tooltip" data-placement="top"
+    <button *ngIf="course.enableNotification" type="button"
+            class="btn float-right nav-link w-16 text-center"
+            data-toggle="modal" data-target="#mute-confirm-course">
+      <i data-toggle="tooltip" data-placement="top"
+         title="关闭通知" class="fas fa-bell"></i>
 
-            [title]="course.hidden?'解除隐藏': course.source==LOCAL? '隐藏':'移除'">
-      <i *ngIf="course.hidden" class="fas fa-eye-slash"></i>
-      <i *ngIf="!course.hidden && course.source==LOCAL" class="fas fa-eye"></i>
-      <i *ngIf="!course.hidden && course.source!=LOCAL" class="fas fa-times"></i>
     </button>
+    <button *ngIf="!course.enableNotification" type="button"
+            class="btn float-right nav-link w-16 text-center"
+            (click)="toggleNotify()">
+      <i data-toggle="tooltip" data-placement="top"
+         title="启用通知" class="fas fa-bell-slash"></i>
+    </button>
+    <button *ngIf="course.hidden"
+            type="button" class="btn float-right nav-link w-16 text-center"
+            (click)="toggleHidden()">
+      <i data-toggle="tooltip" data-placement="top"
+         title="解除隐藏" class="fas fa-eye-slash"></i>
+    </button>
+
+    <button *ngIf="!course.hidden && course.source==LOCAL"
+            type="button" class="btn float-right nav-link w-16 text-center"
+            data-toggle="modal"
+            data-target="#hide-confirm-course">
+      <i data-toggle="tooltip" data-placement="top"
+         title="隐藏" class="fas fa-eye"></i>
+    </button>
+    <button *ngIf="!course.hidden && course.source!=LOCAL"
+            type="button" class="btn float-right nav-link w-16 text-center"
+            data-toggle="modal"
+            data-target="#delete-confirm-course">
+      <i data-toggle="tooltip" data-placement="top"
+         title="移除" class="fas fa-times"></i>
+
+    </button>
+
   </div>
 
 </nav>
@@ -74,10 +94,10 @@
           {{datetime.FormatClassIndex(datetime.getClassIndex(event.startTime, event.type, event.duration))}}
         </td>
         <td class="table-item-text">
-          {{event.location}}
+          {{event.location||'---'}}
         </td>
         <td class="table-item-text">
-          {{event.teacher}}
+          {{event.teacher||'---'}}
         </td>
         <td class="table-item-text">
           {{FormatType(event.type)}}
@@ -102,3 +122,18 @@
   ValueTypeName="课程名称">
 </app-edit-string-dialog>
 <app-share-dialog [TargetId]="course.id" ShareType="课程" ComponentId="share-course"></app-share-dialog>
+<app-confirm-dialog [ComponentId]="'hide-confirm-'+course.id"
+                    Expression="要隐藏课程{{course.courseName}}吗？隐藏后的课程不会显示在课表中，但是可在隐藏的课程中恢复。"
+                    Target="隐藏"
+                    (Confirmed)="toggleHidden()">
+</app-confirm-dialog>
+<app-confirm-dialog ComponentId="delete-confirm-course"
+                    Expression="要删除共享课程{{course.courseName}}吗？此操作不可逆。"
+                    Target="删除"
+                    (Confirmed)="toggleHidden()">
+</app-confirm-dialog>
+<app-confirm-dialog ComponentId="mute-confirm-course"
+                    Expression="要关闭课程{{course.courseName}}的通知吗？关闭后将无法收到上课通知。"
+                    Target="关闭通知"
+                    (Confirmed)="toggleNotify()">
+</app-confirm-dialog>

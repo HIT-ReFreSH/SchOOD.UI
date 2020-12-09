@@ -14,20 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import {Component, Input, OnInit} from '@angular/core';
+import {MessageService} from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
   styleUrls: ['./export-dialog.component.css']
 })
-export class ExportDialogComponent implements OnInit {
+export class ExportDialogComponent implements OnInit
+{
   @Input()
   ComponentId!: string;
   @Input()
   TargetUrl!: string;
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(public msg: MessageService)
+  {
+  }
+
+  ngOnInit(): void
+  {
   }
 
 }

@@ -22,6 +22,7 @@ import {Location} from '@angular/common';
 import {CourseService} from '../services/course.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {MessageService} from '../services/message.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -30,36 +31,8 @@ import {Subscription} from 'rxjs';
 })
 export class CourseDetailComponent implements OnInit, OnDestroy
 {
-
-
   LOCAL = CourseSource.Local;
-  course: Course = {
-    source: CourseSource.Local,
-    events: [
-      {
-        startTime: new Date('18:00 2020/11/30').valueOf(),
-        hidden: false,
-        teacher: 'Test-Teacher',
-        id: 'aaa',
-        location: '正心34',
-        duration: 120,
-        type: EventType.Default
-      },
-      {
-        startTime: new Date('18:00 2020/11/29').valueOf(),
-        hidden: true,
-        teacher: 'Test-Teacher',
-        id: 'bbb',
-        location: '正心31',
-        duration: 120,
-        type: EventType.Default
-      }
-    ],
-    hidden: false,
-    enableNotification: false,
-    courseName: 'TestCourse',
-    id: 'ccc'
-  };
+  course!: Course;
   private routerSubscription!: Subscription;
 
   public FormatType(type: EventType): string
@@ -77,28 +50,61 @@ export class CourseDetailComponent implements OnInit, OnDestroy
 
   public updateCourseName(newCourseName: string): void
   {
-    this.course.courseName = newCourseName;
+    const c = Object.assign({}, this.course);
+    c.courseName = newCourseName;
+    this.courseService.updateCourse(c).subscribe(() =>
+    {
+      this.course = c;
+      this.msg.addOk();
+    });
   }
 
   constructor(public datetime: DatetimeService,
               public location: Location,
               public courseService: CourseService,
               private route: ActivatedRoute,
-              private router: Router)
+              private router: Router,
+              private msg: MessageService)
   {
+  }
+
+
+  toggleHidden(): void
+  {
+    const c = Object.assign({}, this.course);
+    c.hidden = !c.hidden;
+    this.courseService.updateCourse(c).subscribe(() =>
+    {
+      if (this.course.source === CourseSource.Shared)
+      {
+        this.location.back();
+      } else
+      {
+        this.course.hidden = !this.course.hidden;
+      }
+      this.msg.addOk();
+    });
+  }
+
+  toggleNotify(): void
+  {
+    const c = Object.assign({}, this.course);
+    c.enableNotification = !c.enableNotification;
+    this.courseService.updateCourse(c).subscribe(() =>
+    {
+      this.course.enableNotification = !this.course.enableNotification;
+      this.msg.addOk();
+    });
   }
 
   public Load(): void
   {
-    // @ts-ignore
     const id = this.route.snapshot.paramMap.get('id');
     this.router.onSameUrlNavigation = 'reload';
     if (typeof id === 'string')
     {
       this.courseService.getCourse(id).subscribe(c => this.course = c);
     }
-
-
   }
 
   ngOnInit(): void
@@ -107,7 +113,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy
     {
       if (event instanceof NavigationEnd)
       {
-        this.Load();
+        window.location.reload();
       }
     });
     this.Load();

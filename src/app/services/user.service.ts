@@ -20,7 +20,6 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {MessageService} from './message.service';
-import {JsonPipe} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -32,34 +31,26 @@ export class UserService extends BaseService
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  public logout(): void
+  public logout(): Observable<any>
   {
-
-    sessionStorage.clear();
-    this.http.delete<User>(this.usersUrl, this.httpOptions).pipe(
-      catchError(this.handleError)
+    // sessionStorage.clear();
+    return this.http.delete<User>(this.usersUrl, this.httpOptions).pipe(
+      catchError(this.handleError<any>('登出失败'))
     );
-
   }
 
   public getUser(): Observable<User>
   {
-    const r = this.http.get<User>(this.usersUrl)
+    return this.http.get<User>(this.usersUrl)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError<User>('获取用户信息失败'))
       );
-    r.subscribe(c => console.log(c));
-    return r;
-
-
-    // throw new Error();
   }
 
-  public updateUser(user: User): void
+  public updateUser(user: User): Observable<any>
   {
-
-    this.http.put(this.usersUrl, user, this.httpOptions).pipe(
-      catchError(this.handleError)
+    return this.http.put(this.usersUrl, user, this.httpOptions).pipe(
+      catchError(this.handleError<any>('更新用户信息失败'))
     );
   }
 

@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {CourseSummary} from '../../models/course-summary';
 import {CourseSource} from '../../models/course-source.enum';
@@ -38,6 +38,10 @@ export class CoursesViewContainerComponent implements OnInit
       id: '0'
     }
   ]);
+
+  @Output()
+  Reload = new EventEmitter();
+
   public Courses: CourseSummary[] = [];
 
   constructor()
@@ -47,7 +51,6 @@ export class CoursesViewContainerComponent implements OnInit
   ngOnInit(): void
   {
     this.Courses$.subscribe(c => this.Courses = c);
-    console.log()
   }
 
 }

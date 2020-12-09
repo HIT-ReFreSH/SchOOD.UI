@@ -16,7 +16,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="Courses" id="coursesDropdown" routerLinkActive="active">课程</a>
-
         </li>
 
 
@@ -43,12 +42,18 @@
 
          title="分享我的课表"></i>
     </button>
-    <button class="btn float-right nav-link w-16 text-center"
+    <button *ngIf="!user.enableNotification" class="btn float-right nav-link w-16 text-center"
             data-toggle="tooltip" data-placement="top"
             (click)="altNotify()"
-            [title]="user.enableNotification?'关闭通知':'启用通知'">
-      <i *ngIf="user.enableNotification" class="fas fa-bell"></i>
-      <i *ngIf="!user.enableNotification" class="fas fa-bell-slash"></i>
+            title="启用通知">
+      <i  class="fas fa-bell-slash"></i>
+    </button>
+    <button *ngIf="user.enableNotification"
+      class="btn float-right nav-link w-16 text-center"
+            data-toggle="modal" data-target="#mute-confirm-system">
+      <i class="fas fa-bell"
+         data-toggle="tooltip" data-placement="top"
+         title="关闭通知"></i>
     </button>
     <button class="btn float-right nav-link w-16 text-center"
             data-toggle="tooltip" data-placement="top"
@@ -66,6 +71,11 @@
 <app-messages class="ngb-toasts"></app-messages>
 <app-share-dialog ComponentId="shareSchedule" [TargetId]="user.id" ShareType="课表"></app-share-dialog>
 <app-export-dialog ComponentId="exportSchedule" [TargetUrl]="user.calendarUrl"></app-export-dialog>
+<app-confirm-dialog ComponentId="mute-confirm-system"
+                    Expression="要关闭课表通知吗？关闭后将无法收到所有课程的上课通知。"
+                    Target="关闭通知"
+                    (Confirmed)="altNotify()">
+</app-confirm-dialog>
 <footer class="navbar navbar-expand-sm navbar-light pb-0 mb-0 rounded-bottom bg-SchOOD-L1 clearfix">
   <div class="float-left">
     <span class="d-block">&copy; ReFreSH 2020</span>

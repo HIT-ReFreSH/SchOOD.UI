@@ -15,6 +15,7 @@ limitations under the License.
 */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CalendarTime} from '../../models/calendar-time';
+import {Event} from '../../models/event';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class EditCalendarTimeDialogComponent implements OnInit
   @Input()
   public ComponentId!: string;
   @Output()
-  public ValueSubmitted = new EventEmitter();
+  public ValueSubmitted = new EventEmitter<Event>();
 
   constructor()
   {
@@ -37,8 +38,7 @@ export class EditCalendarTimeDialogComponent implements OnInit
 
   public Submit(): void
   {
-    this.Time.Export();
-    this.ValueSubmitted.emit();
+    this.ValueSubmitted.emit(this.Time.Export());
   }
 
   ngOnInit(): void

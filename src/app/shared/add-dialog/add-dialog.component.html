@@ -35,7 +35,7 @@
                     <div class="input-group-append">
                       <button class="btn btn-secondary" type="button"
                               data-toggle="tooltip" data-placement="top"
-                              title="预览课程"
+                              title="预览课程" (click)="getCourseSummary()"
                               id="button-addon2">
                         <i class="fas fa-binoculars"></i>
                       </button>
@@ -48,7 +48,8 @@
                 </div>
               </div>
               <div class="card-footer bg-white clearfix">
-                <button type="button" class="btn btn-success float-right" [disabled]="scheduleSummaryError" data-dismiss="modal">添加</button>
+                <button type="button" class="btn btn-success float-right"
+                        [disabled]="courseSummaryError" (click)="addCourse()" data-dismiss="modal">添加</button>
               </div>
             </div>
           </div>
@@ -66,7 +67,7 @@
                 <div>
                   <label for="schedule-id" class="col-form-label">
                     <i class="fas fa-hashtag"></i>
-                    课程ID:
+                    课表ID:
                   </label>
                   <div class="row m-1 input-group ">
                     <input class="form-control"
@@ -75,7 +76,7 @@
                     <div class="input-group-append">
                       <button class="btn btn-secondary" type="button"
                               data-toggle="tooltip" data-placement="top"
-                              title="预览课表"
+                              title="预览课表" (click)="getScheduleSummary()"
                       >
                         <i class="fas fa-binoculars"></i>
                       </button>
@@ -88,7 +89,9 @@
                 </div>
               </div>
               <div class="card-footer bg-white clearfix">
-                <button type="button" class="btn btn-success float-right" [disabled]="scheduleSummaryError" data-dismiss="modal">添加</button>
+                <button type="button" class="btn btn-success float-right"
+                        [disabled]="scheduleSummaryError" (click)="addSchedule()"
+                        data-dismiss="modal">添加</button>
               </div>
             </div>
           </div>

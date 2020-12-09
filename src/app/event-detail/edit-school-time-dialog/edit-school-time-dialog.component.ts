@@ -15,6 +15,7 @@ limitations under the License.
 */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SchoolTime} from '../../models/school-time';
+import {Event} from '../../models/event';
 
 @Component({
   selector: 'app-edit-school-time-dialog',
@@ -27,12 +28,11 @@ export class EditSchoolTimeDialogComponent implements OnInit {
   @Input()
   public ComponentId!: string;
   @Output()
-  public ValueSubmitted = new EventEmitter();
+  public ValueSubmitted = new EventEmitter<Event>();
 
   public Submit(): void
   {
-    this.Time.Export();
-    this.ValueSubmitted.emit();
+    this.ValueSubmitted.emit(this.Time.Export());
   }
   constructor() {
   }

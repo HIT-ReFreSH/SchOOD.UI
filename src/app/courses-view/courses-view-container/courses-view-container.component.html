@@ -3,7 +3,8 @@
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3"
          *ngFor="let course of Courses"
          style="margin-bottom: 10px">
-      <app-courses-view-item [Course]="course"></app-courses-view-item>
+      <app-courses-view-item [Course]="course" (Reload)="Reload.emit()"
+      ></app-courses-view-item>
     </div>
   </div>
 
